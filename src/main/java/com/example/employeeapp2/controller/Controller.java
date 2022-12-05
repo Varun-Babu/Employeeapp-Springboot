@@ -31,5 +31,10 @@ public class Controller {
         return "View Employee";
     }
 
+    @GetMapping("/delete")
+    public String DeleteEmployee(){
+        return "Delete Employee";
+    }
+
 
 }
