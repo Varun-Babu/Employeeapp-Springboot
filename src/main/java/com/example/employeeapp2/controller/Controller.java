@@ -20,4 +20,9 @@ public class Controller {
     public String SearchEmployee(){
         return "Search Employee";
     }
+
+    @GetMapping("/edit")
+    public String EditEmployee(){
+        return "Edit Employee";
+    }
 }
