@@ -5,6 +5,7 @@ import com.example.employeeapp2.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -20,12 +21,11 @@ public class Controller {
 
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/add",consumes = "application/json", produces = "application/json")
-    public String AddEmployee(@RequestBody Employee e){
-
-        System.out.println(e.toString());
-        System.out.println(e.getEmpName());
+    public HashMap<String, String> Add(@RequestBody Employee e){
         dao.save(e);
-        return "ADD EMPLOYEE";
+        HashMap<String,String> map = new HashMap<>();
+        map.put("status","success");
+        return map;
     }
 
     @PostMapping("/search")
