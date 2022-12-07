@@ -1,37 +1,51 @@
 package com.example.employeeapp2.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.employeeapp2.Dao.EmployeeDao;
+import com.example.employeeapp2.model.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
 
 @RestController
 public class Controller {
 
-    @GetMapping("/")
+    @Autowired
+    private EmployeeDao dao;
+
+    @PostMapping("/")
     public String Homepage(){
         return "Welcome to Employee Homepage";
     }
 
-    @GetMapping("/add")
-    public String AddEmployee(){
-        return "ADD EMPLOYEE";
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/add",consumes = "application/json", produces = "application/json")
+    public HashMap<String, String> Add(@RequestBody Employee e){
+        dao.save(e);
+        HashMap<String,String> map = new HashMap<>();
+        map.put("status","success");
+        return map;
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public String SearchEmployee(){
         return "Search Employee";
     }
 
-    @GetMapping("/edit")
+    @PostMapping("/edit")
     public String EditEmployee(){
         return "Edit Employee";
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/view")
-    public String ViewEmployee(){
-        return "View Employee";
+    public List<Employee> ViewEmployee(){
+
+        return (List<Employee>) dao.findAll();
     }
 
-    @GetMapping("/delete")
+    @PostMapping("/delete")
     public String DeleteEmployee(){
         return "Delete Employee";
     }
